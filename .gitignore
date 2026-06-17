@@ -1,0 +1,9 @@
+# Ignore node_modules in all subdirectories
+**/node_modules/
+
+# Ignore environment variables in all subdirectories
+**/.env
+
+# Ignore build outputs
+**/dist/
+**/.next/
