@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import AdminDashboard from './pages/AdminDashboard';
 import StoreListings from './pages/StoreListings';
+import OwnerDashboard from './pages/OwnerDashboard'; 
 
 export default function App() {
     return (
@@ -16,8 +17,8 @@ export default function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/admin" element={<AdminDashboard />} />
-                    <Route path="/stores" element={<StoreListings />} /> 
-                    <Route path="/owner" element={<div className="p-8 text-2xl">Owner Dashboard (Task 9)</div>} />
+                    <Route path="/stores" element={<StoreListings />} />
+                    <Route path="/owner" element={<OwnerDashboard />} /> 
                 </Routes>
             </Router>
         </AuthProvider>
