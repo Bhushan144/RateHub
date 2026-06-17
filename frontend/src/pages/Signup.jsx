@@ -8,7 +8,7 @@ export default function Signup() {
     const [formData, setFormData] = useState({ name: '', email: '', password: '', address: '' });
 
     const validateForm = () => {
-        if (formData.name.length < 20 || formData.name.length > 60) return "Name must be between 20 and 60 characters.";
+        if (formData.name.length < 3 || formData.name.length > 20) return "Name must be between 3 and 20 characters.";
         if (formData.address.length > 400) return "Address cannot exceed 400 characters.";
         if (formData.password.length < 8 || formData.password.length > 16) return "Password must be 8-16 characters.";
         if (!/[A-Z]/.test(formData.password)) return "Password must contain an uppercase letter.";
@@ -36,7 +36,7 @@ export default function Signup() {
                 <h2 className="text-2xl font-bold text-center mb-6">Create RateHub Account</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <input 
-                        type="text" placeholder="Full Name (Min 20 characters)" required
+                        type="text" placeholder="Full Name (3-20 characters)" required
                         className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
                         onChange={e => setFormData({...formData, name: e.target.value})}
                     />

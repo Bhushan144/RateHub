@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const createUserSchema = z.object({
     body: z.object({
-        name: z.string().min(20).max(60),
+        name: z.string().min(3).max(20),
         email: z.string().email(),
         password: z.string().min(8).max(16)
             .regex(/[A-Z]/)

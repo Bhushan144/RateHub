@@ -1,11 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import api from '../utils/axios';
+import { AuthContext } from '../context/AuthContext';
 
 export default function StoreListings() {
+    const { logout } = useContext(AuthContext);
+    const navigate = useNavigate();
+    
     const [stores, setStores] = useState([]);
     const [search, setSearch] = useState('');
     const [sortBy, setSortBy] = useState('name');
+    
+    const [showPasswordModal, setShowPasswordModal] = useState(false);
+    const [newPassword, setNewPassword] = useState('');
 
     const fetchStores = async () => {
         try {
@@ -27,13 +35,34 @@ export default function StoreListings() {
         try {
             await api.post('/users/ratings', { storeId, score });
             toast.success('Rating saved successfully!');
-            fetchStores(); 
+            fetchStores();
         } catch (error) {
             toast.error(error.response?.data?.message || 'Failed to submit rating');
         }
     };
 
-    
+    const handleLogout = async () => {
+        try {
+            await api.post('/users/logout');
+        } catch (e) {
+        } finally {
+            logout();
+            navigate('/login');
+        }
+    };
+
+    const handlePasswordUpdate = async (e) => {
+        e.preventDefault();
+        try {
+            await api.put('/users/password', { password: newPassword });
+            toast.success('Password updated successfully!');
+            setNewPassword('');
+            setShowPasswordModal(false);
+        } catch (error) {
+            toast.error(error.response?.data?.message || 'Failed to update password.');
+        }
+    };
+
     const StarRating = ({ storeId, currentRating }) => {
         return (
             <div className="flex space-x-1 mt-2">
@@ -60,11 +89,11 @@ export default function StoreListings() {
                 <div className="flex justify-between items-center mb-8 bg-white p-4 rounded-lg shadow-sm">
                     <h1 className="text-2xl font-bold text-gray-800">Discover Stores</h1>
                     
-                    <div className="flex space-x-4 w-1/2">
+                    <div className="flex items-center space-x-4">
                         <input 
                             type="text" 
                             placeholder="Search by name or address..." 
-                            className="flex-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-500"
+                            className="p-2 border rounded-md focus:ring-2 focus:ring-blue-500 w-64"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                         />
@@ -76,6 +105,18 @@ export default function StoreListings() {
                             <option value="name">Sort by Name</option>
                             <option value="address">Sort by Address</option>
                         </select>
+                        <button 
+                            onClick={() => setShowPasswordModal(true)}
+                            className="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition-colors text-sm font-semibold"
+                        >
+                            Change Password
+                        </button>
+                        <button 
+                            onClick={handleLogout}
+                            className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors text-sm font-semibold"
+                        >
+                            Logout
+                        </button>
                     </div>
                 </div>
 
@@ -110,6 +151,31 @@ export default function StoreListings() {
                     </div>
                 )}
             </div>
+
+            {showPasswordModal && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+                    <div className="bg-white p-6 rounded-lg w-full max-w-md shadow-xl">
+                        <h2 className="text-xl font-bold mb-4">Change Password</h2>
+                        <form onSubmit={handlePasswordUpdate} className="space-y-4">
+                            <div>
+                                <input 
+                                    type="password" 
+                                    required
+                                    placeholder="New Password" 
+                                    className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
+                                    value={newPassword}
+                                    onChange={(e) => setNewPassword(e.target.value)}
+                                />
+                                <p className="text-xs text-gray-500 mt-1">Must be 8-16 characters, 1 uppercase, 1 special character.</p>
+                            </div>
+                            <div className="flex gap-4 pt-2">
+                                <button type="button" onClick={() => setShowPasswordModal(false)} className="flex-1 bg-gray-200 text-gray-800 p-2 rounded hover:bg-gray-300">Cancel</button>
+                                <button type="submit" className="flex-1 bg-blue-600 text-white p-2 rounded hover:bg-blue-700">Update</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
