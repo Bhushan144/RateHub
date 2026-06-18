@@ -51,10 +51,10 @@ export default function OwnerDashboard() {
     if (!dashboardData) return <div className="p-8 text-center text-red-500">No store found for this account.</div>;
 
     return (
-        <div className="min-h-screen bg-gray-50 p-8">
+        <div className="min-h-screen bg-gray-50 p-4 md:p-8">
             <div className="max-w-6xl mx-auto">
-                <div className="flex justify-between items-center mb-8">
-                    <h1 className="text-3xl font-bold text-gray-800">Store Owner Dashboard</h1>
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-6 md:mb-8">
+                    <h1 className="text-2xl md:text-3xl font-bold text-gray-800">Store Owner Dashboard</h1>
                     <button 
                         onClick={handleLogout}
                         className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
@@ -63,7 +63,7 @@ export default function OwnerDashboard() {
                     </button>
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
                     <div className="bg-white p-6 rounded-lg shadow border border-gray-100">
                         <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Your Store</h3>
                         <p className="text-2xl font-bold text-gray-800 mt-2">{dashboardData.storeName}</p>
@@ -78,7 +78,7 @@ export default function OwnerDashboard() {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-8">
                     {/* Ratings Table - Takes up 2/3 of the space on large screens */}
                     <div className="lg:col-span-2 bg-white rounded-lg shadow overflow-hidden border border-gray-100">
                         <div className="px-6 py-4 border-b border-gray-100 bg-gray-50">

@@ -91,39 +91,39 @@ export default function AdminDashboard() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100 p-8">
+        <div className="min-h-screen bg-gray-100 p-4 md:p-8">
             <div className="max-w-7xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
-                <div className="flex border-b relative">
+                <div className="flex flex-wrap border-b">
                     <button 
-                        className={`flex-1 py-4 text-center font-semibold ${activeTab === 'dashboard' ? 'bg-blue-50 text-blue-600 border-b-2 border-blue-600' : 'text-gray-600'}`}
+                        className={`flex-1 py-3 md:py-4 text-center font-semibold text-sm md:text-base ${activeTab === 'dashboard' ? 'bg-blue-50 text-blue-600 border-b-2 border-blue-600' : 'text-gray-600'}`}
                         onClick={() => { setActiveTab('dashboard'); setSearch(''); }}
                     >
                         Dashboard
                     </button>
                     <button 
-                        className={`flex-1 py-4 text-center font-semibold ${activeTab === 'users' ? 'bg-blue-50 text-blue-600 border-b-2 border-blue-600' : 'text-gray-600'}`}
+                        className={`flex-1 py-3 md:py-4 text-center font-semibold text-sm md:text-base ${activeTab === 'users' ? 'bg-blue-50 text-blue-600 border-b-2 border-blue-600' : 'text-gray-600'}`}
                         onClick={() => { setActiveTab('users'); setSearch(''); }}
                     >
                         Users
                     </button>
                     <button 
-                        className={`flex-1 py-4 text-center font-semibold ${activeTab === 'stores' ? 'bg-blue-50 text-blue-600 border-b-2 border-blue-600' : 'text-gray-600'}`}
+                        className={`flex-1 py-3 md:py-4 text-center font-semibold text-sm md:text-base ${activeTab === 'stores' ? 'bg-blue-50 text-blue-600 border-b-2 border-blue-600' : 'text-gray-600'}`}
                         onClick={() => { setActiveTab('stores'); setSearch(''); }}
                     >
                         Stores
                     </button>
                     <button 
                         onClick={handleLogout}
-                        className="absolute right-4 top-4 px-4 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm"
+                        className="py-3 md:py-4 px-4 bg-red-600 text-white hover:bg-red-700 text-sm font-semibold"
                     >
                         Logout
                     </button>
                 </div>
 
-                <div className="p-6">
+                <div className="p-4 md:p-6">
                     {/* DASHBOARD TAB */}
                     {activeTab === 'dashboard' && (
-                        <div className="grid grid-cols-3 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
                             <div className="p-6 bg-blue-100 rounded-lg shadow text-center">
                                 <h3 className="text-xl font-bold text-blue-800">Total Users</h3>
                                 <p className="text-4xl font-extrabold text-blue-600 mt-2">{metrics.totalUsers}</p>
@@ -142,12 +142,12 @@ export default function AdminDashboard() {
                     {/* USERS TAB */}
                     {activeTab === 'users' && (
                         <>
-                            <div className="flex justify-between mb-4">
-                                <div className="flex gap-4 flex-wrap items-center">
+                            <div className="flex flex-col sm:flex-row sm:justify-between gap-3 mb-4">
+                                <div className="flex gap-2 md:gap-4 flex-wrap items-center">
                                     <input 
                                         type="text" 
                                         placeholder="Search by name, email, address..." 
-                                        className="p-2 border rounded w-64"
+                                        className="p-2 border rounded w-full sm:w-64"
                                         value={search}
                                         onChange={(e) => setSearch(e.target.value)}
                                     />
@@ -179,7 +179,7 @@ export default function AdminDashboard() {
                                 </div>
                                 <button 
                                     onClick={() => setShowUserForm(true)}
-                                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full sm:w-auto"
                                 >
                                     + Add User
                                 </button>
@@ -231,12 +231,12 @@ export default function AdminDashboard() {
                     {/* STORES TAB */}
                     {activeTab === 'stores' && (
                         <>
-                            <div className="flex justify-between mb-4">
-                                <div className="flex gap-4 flex-wrap items-center">
+                            <div className="flex flex-col sm:flex-row sm:justify-between gap-3 mb-4">
+                                <div className="flex gap-2 md:gap-4 flex-wrap items-center">
                                     <input 
                                         type="text" 
                                         placeholder="Search by name, email, address..." 
-                                        className="p-2 border rounded w-64"
+                                        className="p-2 border rounded w-full sm:w-64"
                                         value={search}
                                         onChange={(e) => setSearch(e.target.value)}
                                     />
@@ -258,7 +258,7 @@ export default function AdminDashboard() {
                                 </div>
                                 <button 
                                     onClick={() => setShowStoreForm(true)}
-                                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full sm:w-auto"
                                 >
                                     + Add Store
                                 </button>

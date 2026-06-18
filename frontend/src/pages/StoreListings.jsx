@@ -84,16 +84,16 @@ export default function StoreListings() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 p-8">
+        <div className="min-h-screen bg-gray-50 p-4 md:p-8">
             <div className="max-w-6xl mx-auto">
-                <div className="flex justify-between items-center mb-8 bg-white p-4 rounded-lg shadow-sm">
-                    <h1 className="text-2xl font-bold text-gray-800">Discover Stores</h1>
+                <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6 md:mb-8 bg-white p-4 rounded-lg shadow-sm">
+                    <h1 className="text-xl md:text-2xl font-bold text-gray-800">Discover Stores</h1>
                     
-                    <div className="flex items-center space-x-4">
+                    <div className="flex flex-wrap items-center gap-2 md:gap-4">
                         <input 
                             type="text" 
                             placeholder="Search by name or address..." 
-                            className="p-2 border rounded-md focus:ring-2 focus:ring-blue-500 w-64"
+                            className="p-2 border rounded-md focus:ring-2 focus:ring-blue-500 w-full sm:w-64"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                         />
