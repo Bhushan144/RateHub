@@ -8,7 +8,7 @@ Built with a strong focus on security, scalability, data integrity, and user exp
 
 | Service | URL |
 |---------|-----|
-| Frontend (Vercel) | [https://ratehub-your-username.vercel.app](https://ratehub-your-username.vercel.app) |
+| Frontend (Vercel) | [https://ratehub4u.vercel.app](https://ratehub-your-username.vercel.app) |
 | Backend (Render) | [https://ratehub-api.onrender.com](https://ratehub-api.onrender.com) |
 
 > **Note:** Replace the above URLs with your actual deployed links after deployment.
