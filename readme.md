@@ -4,6 +4,25 @@ RateHub is a modern, responsive web application that allows users to discover lo
 
 Built with a strong focus on security, scalability, data integrity, and user experience.
 
+## 🔗 Live Demo
+
+| Service | URL |
+|---------|-----|
+| Frontend (Vercel) | [https://ratehub-your-username.vercel.app](https://ratehub-your-username.vercel.app) |
+| Backend (Render) | [https://ratehub-api.onrender.com](https://ratehub-api.onrender.com) |
+
+> **Note:** Replace the above URLs with your actual deployed links after deployment.
+
+## 🔐 Test Accounts
+
+Use these credentials to test the application:
+
+| Role | Email | Password |
+|--------|--------|----------|
+| System Admin | admin@ratehub.com | Admin@123! |
+| Store Owner | owner@store.com | Admin@123! |
+| Normal User | user@normal.com | Admin@123! |
+
 ---
 
 ## 🚀 Tech Stack
@@ -121,10 +140,9 @@ RateHub/
 │   │
 │   ├── src/
 │   │   ├── controllers/
-│   │   ├── middleware/
+│   │   ├── middlewares/
 │   │   ├── routes/
-│   │   ├── services/
-│   │   └── utils/
+│   │   └── validators/
 │   │
 │   ├── .env
 │   ├── package.json
@@ -132,11 +150,9 @@ RateHub/
 │
 ├── frontend/
 │   ├── src/
-│   │   ├── components/
+│   │   ├── context/
 │   │   ├── pages/
-│   │   ├── layouts/
-│   │   ├── services/
-│   │   └── hooks/
+│   │   └── utils/
 │   │
 │   ├── package.json
 │   └── vite.config.js
@@ -221,16 +237,6 @@ Start the frontend development server:
 ```bash
 npm run dev
 ```
-
----
-
-## 🔐 Seeded Test Accounts
-
-| Role | Email | Password |
-|--------|--------|----------|
-| Admin | admin@ratehub.com | Admin@123! |
-| Store Owner | owner@store.com | Admin@123! |
-| User | user@normal.com | Admin@123! |
 
 ---
 

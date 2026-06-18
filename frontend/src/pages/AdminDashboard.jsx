@@ -14,6 +14,8 @@ export default function AdminDashboard() {
     const [stores, setStores] = useState([]);
     const [search, setSearch] = useState('');
     const [sortBy, setSortBy] = useState('createdAt');
+    const [roleFilter, setRoleFilter] = useState('');
+    const [order, setOrder] = useState('asc');
 
     const [showUserForm, setShowUserForm] = useState(false);
     const [showStoreForm, setShowStoreForm] = useState(false);
@@ -24,7 +26,7 @@ export default function AdminDashboard() {
 
     useEffect(() => {
         fetchData();
-    }, [activeTab, search, sortBy]);
+    }, [activeTab, search, sortBy, roleFilter, order]);
 
     const fetchData = async () => {
         try {
@@ -32,10 +34,10 @@ export default function AdminDashboard() {
                 const { data } = await api.get('/admin/dashboard');
                 setMetrics(data.data);
             } else if (activeTab === 'users') {
-                const { data } = await api.get(`/admin/users?search=${search}&sortBy=${sortBy}`);
+                const { data } = await api.get(`/admin/users?search=${search}&sortBy=${sortBy}&order=${order}${roleFilter ? `&role=${roleFilter}` : ''}`);
                 setUsers(data.data.users);
             } else if (activeTab === 'stores') {
-                const { data } = await api.get(`/admin/stores?search=${search}&sortBy=${sortBy}`);
+                const { data } = await api.get(`/admin/stores?search=${search}&sortBy=${sortBy}&order=${order}`);
                 setStores(data.data.stores);
             }
         } catch (error) {
@@ -43,14 +45,9 @@ export default function AdminDashboard() {
         }
     };
 
-    const handleLogout = async () => {
-        try {
-            await api.post('/admin/logout');
-        } catch (e) {
-        } finally {
-            logout();
-            navigate('/login');
-        }
+    const handleLogout = () => {
+        logout();
+        navigate('/login');
     };
 
     const handleCreateUser = async (e) => {
@@ -146,14 +143,24 @@ export default function AdminDashboard() {
                     {activeTab === 'users' && (
                         <>
                             <div className="flex justify-between mb-4">
-                                <div className="flex gap-4 w-2/3">
+                                <div className="flex gap-4 flex-wrap items-center">
                                     <input 
                                         type="text" 
-                                        placeholder="Search users..." 
-                                        className="p-2 border rounded w-1/2"
+                                        placeholder="Search by name, email, address..." 
+                                        className="p-2 border rounded w-64"
                                         value={search}
                                         onChange={(e) => setSearch(e.target.value)}
                                     />
+                                    <select 
+                                        className="p-2 border rounded"
+                                        value={roleFilter}
+                                        onChange={(e) => setRoleFilter(e.target.value)}
+                                    >
+                                        <option value="">All Roles</option>
+                                        <option value="SYSTEM_ADMIN">System Admin</option>
+                                        <option value="NORMAL_USER">Normal User</option>
+                                        <option value="STORE_OWNER">Store Owner</option>
+                                    </select>
                                     <select 
                                         className="p-2 border rounded"
                                         value={sortBy}
@@ -161,7 +168,14 @@ export default function AdminDashboard() {
                                     >
                                         <option value="createdAt">Sort by Date</option>
                                         <option value="name">Sort by Name</option>
+                                        <option value="email">Sort by Email</option>
                                     </select>
+                                    <button
+                                        onClick={() => setOrder(o => o === 'asc' ? 'desc' : 'asc')}
+                                        className="p-2 border rounded bg-gray-100 hover:bg-gray-200 text-sm font-medium"
+                                    >
+                                        {order === 'asc' ? '↑ Asc' : '↓ Desc'}
+                                    </button>
                                 </div>
                                 <button 
                                     onClick={() => setShowUserForm(true)}
@@ -179,6 +193,7 @@ export default function AdminDashboard() {
                                             <th className="p-3 border-b">User ID</th> 
                                             <th className="p-3 border-b">Name</th>
                                             <th className="p-3 border-b">Email</th>
+                                            <th className="p-3 border-b">Address</th>
                                             <th className="p-3 border-b">Role</th>
                                             <th className="p-3 border-b">Action</th>
                                         </tr>
@@ -191,6 +206,7 @@ export default function AdminDashboard() {
                                                 
                                                 <td className="p-3 border-b">{user.name}</td>
                                                 <td className="p-3 border-b">{user.email}</td>
+                                                <td className="p-3 border-b">{user.address}</td>
                                                 <td className="p-3 border-b">
                                                     <span className={`px-2 py-1 text-xs font-bold rounded ${user.role === 'SYSTEM_ADMIN' ? 'bg-red-200 text-red-800' : user.role === 'STORE_OWNER' ? 'bg-yellow-200 text-yellow-800' : 'bg-green-200 text-green-800'}`}>
                                                         {user.role}
@@ -216,11 +232,11 @@ export default function AdminDashboard() {
                     {activeTab === 'stores' && (
                         <>
                             <div className="flex justify-between mb-4">
-                                <div className="flex gap-4 w-2/3">
+                                <div className="flex gap-4 flex-wrap items-center">
                                     <input 
                                         type="text" 
-                                        placeholder="Search stores..." 
-                                        className="p-2 border rounded w-1/2"
+                                        placeholder="Search by name, email, address..." 
+                                        className="p-2 border rounded w-64"
                                         value={search}
                                         onChange={(e) => setSearch(e.target.value)}
                                     />
@@ -231,7 +247,14 @@ export default function AdminDashboard() {
                                     >
                                         <option value="createdAt">Sort by Date</option>
                                         <option value="name">Sort by Name</option>
+                                        <option value="email">Sort by Email</option>
                                     </select>
+                                    <button
+                                        onClick={() => setOrder(o => o === 'asc' ? 'desc' : 'asc')}
+                                        className="p-2 border rounded bg-gray-100 hover:bg-gray-200 text-sm font-medium"
+                                    >
+                                        {order === 'asc' ? '↑ Asc' : '↓ Desc'}
+                                    </button>
                                 </div>
                                 <button 
                                     onClick={() => setShowStoreForm(true)}
@@ -274,7 +297,7 @@ export default function AdminDashboard() {
                     <div className="bg-white p-6 rounded-lg w-full max-w-md shadow-xl">
                         <h2 className="text-xl font-bold mb-4">Add New User</h2>
                         <form onSubmit={handleCreateUser} className="space-y-4">
-                            <input required type="text" placeholder="Full Name (Min 20 chars)" className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500" value={userForm.name} onChange={e => setUserForm({...userForm, name: e.target.value})} />
+                            <input required type="text" placeholder="Full Name (3-20 characters)" className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500" value={userForm.name} onChange={e => setUserForm({...userForm, name: e.target.value})} />
                             <input required type="email" placeholder="Email Address" className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500" value={userForm.email} onChange={e => setUserForm({...userForm, email: e.target.value})} />
                             <input required type="password" placeholder="Password" className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500" value={userForm.password} onChange={e => setUserForm({...userForm, password: e.target.value})} />
                             <input required type="text" placeholder="Address" className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500" value={userForm.address} onChange={e => setUserForm({...userForm, address: e.target.value})} />
