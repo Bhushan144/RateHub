@@ -27,7 +27,7 @@ export default function Login() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-md">
                 <h2 className="text-2xl font-bold text-center mb-6">Log in to RateHub</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -41,11 +41,34 @@ export default function Login() {
                         className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500"
                         onChange={e => setFormData({...formData, password: e.target.value})}
                     />
-                    <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">Log In</button>
+                    <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition-colors">Log In</button>
                 </form>
                 <p className="mt-4 text-center text-sm text-gray-600">
                     Need an account? <Link to="/signup" className="text-blue-600 hover:underline">Sign up</Link>
                 </p>
+
+                {/* --- TEST CREDENTIALS BOX --- */}
+                <div className="mt-8 bg-gray-50 rounded-lg p-5 border border-gray-200">
+                    <h3 className="text-sm font-bold text-gray-700 mb-4 text-center uppercase tracking-wider">Test Credentials</h3>
+                    <div className="space-y-3 text-sm text-gray-600">
+                        <div className="flex justify-between border-b border-gray-200 pb-2">
+                            <span className="font-semibold text-gray-800">System Admin</span>
+                            <span className="select-all">admin@ratehub.com</span>
+                        </div>
+                        <div className="flex justify-between border-b border-gray-200 pb-2">
+                            <span className="font-semibold text-gray-800">Store Owner</span>
+                            <span className="select-all">owner@store.com</span>
+                        </div>
+                        <div className="flex justify-between border-b border-gray-200 pb-2">
+                            <span className="font-semibold text-gray-800">Normal User</span>
+                            <span className="select-all">user@normal.com</span>
+                        </div>
+                        <div className="text-center pt-1 text-gray-800">
+                            <span className="font-semibold text-gray-600">Password for all:</span> <span className="select-all font-mono font-bold text-blue-600">Admin@123!</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     );
